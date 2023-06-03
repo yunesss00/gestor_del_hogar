@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestor_del_hogar/config/router/app_router.dart';
+import 'package:gestor_del_hogar/config/theme/app_thme.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+   const ProviderScope(child: MainApp())
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -9,13 +14,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      routerConfig: appRouter,
+      theme: AppTheme().getTheme(),
     );
   }
 }
