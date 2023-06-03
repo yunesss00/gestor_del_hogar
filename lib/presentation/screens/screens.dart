@@ -1,3 +1,5 @@
+export 'package:gestor_del_hogar/presentation/screens/home/home_screen.dart';
 
+export 'package:gestor_del_hogar/presentation/screens/auth/login_screen.dart';
+export 'package:gestor_del_hogar/presentation/screens/auth/register_screen.dart';
 
-export 'package:gestor_del_hogar/presentation/screens/homeScreen.dart';

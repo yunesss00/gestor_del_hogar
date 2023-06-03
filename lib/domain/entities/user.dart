@@ -5,6 +5,8 @@ class User {
   String lastName2;
   String email;
   String photo;
+  String password;
+  String token;
 
   User({
     required this.id,
@@ -13,5 +15,7 @@ class User {
     required this.lastName2,
     required this.email,
     this.photo = '',
+    required this.password,
+    required this.token,
   });
 }
