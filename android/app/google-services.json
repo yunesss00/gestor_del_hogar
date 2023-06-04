@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "518856600134",
+    "firebase_url": "https://gestor-del-hogar-697f6-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gestor-del-hogar-697f6",
+    "storage_bucket": "gestor-del-hogar-697f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518856600134:android:cd04f717055615f43b3847",
+        "android_client_info": {
+          "package_name": "com.example.gestor_del_hogar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518856600134-jhb85a2e64nnb9j0bmmnsb7f2svmh15p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGnesX8m46B68x_E4Bogzz0b6zOrm2J6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518856600134-jhb85a2e64nnb9j0bmmnsb7f2svmh15p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
