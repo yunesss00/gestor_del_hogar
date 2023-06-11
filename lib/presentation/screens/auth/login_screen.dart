@@ -7,7 +7,7 @@ import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  static const name = 'login-screen';
+  static const name = 'login';
 
   @override
   Widget build(BuildContext context) {
@@ -84,19 +84,19 @@ class _LoginForm extends ConsumerWidget {
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
-                text: 'Ingresar',
+                text: 'Iniciar sesión',
                 buttonColor: Colors.black,
                 onPressed: () {
                   ref.read(loginFormProvider.notifier).onFormSubmit();
                 },
-              )),
-          const Spacer(flex: 2),
+          )),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('¿No tienes cuenta?'),
               TextButton(
-                  onPressed: () => context.push('/register'),
+                  onPressed: () => context.push('/register-screen'),
                   child: const Text('Crea una aquí'))
             ],
           ),

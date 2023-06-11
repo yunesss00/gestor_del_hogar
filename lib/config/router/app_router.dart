@@ -12,12 +12,25 @@ final appRouter = GoRouter(
       name: LoginScreen.name,
       builder: (context,state) => const LoginScreen(),
     ),
+
+    GoRoute(
+      path: '/register-screen',
+      name: RegisterScreen.name,
+      builder: (context,state) => const RegisterScreen(),
+    ),
     
     GoRoute(
       path: '/home-screen',
       name: HomeScreen.name,
       builder: (context,state) => const HomeScreen(),
+    ),
+
+     GoRoute(
+      path: '/',
+      name: '/',
+      builder: (context,state) => const LoginScreen(),
     )
+
 
   ]
 );
