@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:gestor_del_hogar/presentation/providers/auth/auth_provider.dart';
 import 'package:gestor_del_hogar/shared/infractrusture/inputs/inputs.dart';
 
 class LoginFormState {
@@ -44,8 +45,21 @@ class LoginFormState {
   }
 }
 
+final loginFormProvider =
+    StateNotifierProvider.autoDispose<LoginFormNotifier, LoginFormState>((ref) {
+  final loginUserCallBack = ref.watch(authProvider.notifier).loginUser;
+
+  return LoginFormNotifier(
+    loginUserCallBack: loginUserCallBack,
+  );
+});
+
 class LoginFormNotifier extends StateNotifier<LoginFormState> {
-  LoginFormNotifier() : super(LoginFormState());
+  final Function(String, String) loginUserCallBack;
+
+  LoginFormNotifier({
+    required this.loginUserCallBack,
+  }) : super(LoginFormState());
 
   onEmailChanged(String value) {
     final newEmail = Email.dirty(value);
@@ -60,10 +74,11 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
         isValid: Formz.validate([newPassword, state.email]));
   }
 
-  onFormSubmit() {
+  onFormSubmit() async {
     _touchEveryField();
     if (!state.isValid) return;
-    print(state);
+
+    await loginUserCallBack(state.email.value, state.password.value);
   }
 
   _touchEveryField() {
@@ -77,8 +92,3 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
         isValid: Formz.validate([email, password]));
   }
 }
-
-final loginFormProvider =
-    StateNotifierProvider.autoDispose<LoginFormNotifier, LoginFormState>((ref) {
-  return LoginFormNotifier();
-});

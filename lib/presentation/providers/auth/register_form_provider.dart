@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:gestor_del_hogar/presentation/providers/auth/auth_provider.dart';
+import 'package:gestor_del_hogar/domain/domain.dart';
 import 'package:gestor_del_hogar/shared/infractrusture/inputs/inputs.dart';
 
 class RegisterFormState {
@@ -46,8 +48,7 @@ class RegisterFormState {
           lastName1: lastName1 ?? this.lastName1,
           lastName2: lastName2 ?? this.lastName2);
 
-
-@override
+  @override
   String toString() {
     return '''
     LoginFormState:
@@ -61,15 +62,24 @@ class RegisterFormState {
       lastname: $lastName1 $lastName2
   ''';
   }
-
-
 }
 
+final registerFormProvider =
+    StateNotifierProvider.autoDispose<RegisterFormNotifier, RegisterFormState>(
+        (ref) {
+  final registerUserCallBack = ref.watch(authProvider.notifier).registerUser;
 
-
+  return RegisterFormNotifier(
+    registerUserCallBack: registerUserCallBack,
+  );
+});
 
 class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
-  RegisterFormNotifier() : super(RegisterFormState());
+  final Function(String, String, String, String, String) registerUserCallBack;
+
+  RegisterFormNotifier({
+    required this.registerUserCallBack,
+  }) : super(RegisterFormState());
 
   onEmailChanged(String value) {
     final newEmail = Email.dirty(value);
@@ -155,12 +165,13 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
         ]));
   }
 
-  onFormSubmit() {
+  onFormSubmit() async {
     _touchEveryField();
     if (!state.isValid) return;
-    print(state);
     if (state.password1.value != state.password2.value) return;
-    
+
+    await registerUserCallBack(state.email.value, state.password1.value,
+        state.name.value, state.lastName1.value, state.lastName2.value);
   }
 
   _touchEveryField() {
@@ -183,8 +194,3 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
             [email, password1, password2, name, lastName1, lastName2]));
   }
 }
-
-final registerFormProvider =
-    StateNotifierProvider.autoDispose<RegisterFormNotifier, RegisterFormState>((ref) {
-  return RegisterFormNotifier();
-});
