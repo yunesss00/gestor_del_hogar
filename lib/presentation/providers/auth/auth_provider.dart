@@ -60,7 +60,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       print(e);
     } catch (e) {
       await authRepository.firebaseLogout();
-      print(e);}
+       print(e);}
   }
 
   void checkAuthStatus() async {}
