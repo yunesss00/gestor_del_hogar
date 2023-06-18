@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestor_del_hogar/domain/domain.dart';
 import 'package:gestor_del_hogar/infractrusture/infractrusture.dart';
-import 'package:gestor_del_hogar/infractrusture/repositories/auth_repository_impl.dart';
 
 enum AuthStatus { cheking, authenticated, notAuthenticated }
 
@@ -43,6 +40,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       await authRepository.firebaseLogin(email, password);
     } on WrongCredentials catch (e) {
+      print(e);
       await authRepository.firebaseLogout();
     } catch (e) {
       await authRepository.firebaseLogout();
@@ -60,7 +58,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       print(e);
     } catch (e) {
       await authRepository.firebaseLogout();
-       print(e);}
+      print(e);
+    }
   }
 
   void checkAuthStatus() async {}

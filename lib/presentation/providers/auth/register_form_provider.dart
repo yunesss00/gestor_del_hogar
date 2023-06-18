@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:gestor_del_hogar/presentation/providers/auth/auth_provider.dart';
-import 'package:gestor_del_hogar/domain/domain.dart';
 import 'package:gestor_del_hogar/shared/infractrusture/inputs/inputs.dart';
 
 class RegisterFormState {
