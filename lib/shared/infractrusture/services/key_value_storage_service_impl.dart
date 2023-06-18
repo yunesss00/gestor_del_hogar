@@ -10,16 +10,8 @@ class KeyValueStorageServiceImpl implements KeyValueStorageService {
   @override
   Future<T?> getValue<T>(String key) async {
     final prefs = await getSharedPreferences();
+    return prefs.getString(key) as T?;
 
-    switch(T){
-      case int:
-        return prefs.getInt(key) as T?;
-      case String:
-        return prefs.getString(key) as T?;
-
-      default:
-        throw UnimplementedError('GET not implemented for type ${T.runtimeType}');
-    }
   }
 
   @override
@@ -31,16 +23,6 @@ class KeyValueStorageServiceImpl implements KeyValueStorageService {
   @override
   Future<void> setKeyValue<T>(String key, T value) async{
     final prefs = await getSharedPreferences();
-
-    switch(T){
-      case int:
-        prefs.setInt(key, value as int );
-        break;
-      case String:
-        prefs.setString(key, value as String);
-        break;
-      default:
-        throw UnimplementedError('GET not implemented for type ${T.runtimeType}');
-    }
+    prefs.setString(key, value as String);
   }
 }

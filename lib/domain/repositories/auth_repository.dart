@@ -9,4 +9,5 @@ abstract class AuthRepository {
   Future<User?> firebaseCreate(String email, String password);
   Future<User?> firebaseLogin(String email, String password);
   Future<void> firebaseLogout();
+  Future<User?> firebaseCheckAuth();
 }

@@ -28,4 +28,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> firebaseLogout() {
     return dataSource.firebaseLogout();
   }
+
+  @override
+  Future<User?> firebaseCheckAuth() {
+    return dataSource.firebaseCheckAuth();
+  }
 }

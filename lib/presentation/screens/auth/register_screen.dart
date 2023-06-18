@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestor_del_hogar/config/config.dart';
 import 'package:gestor_del_hogar/presentation/providers/providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';

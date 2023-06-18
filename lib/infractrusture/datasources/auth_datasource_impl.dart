@@ -69,8 +69,22 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<void> firebaseLogout() {
-    // TODO: implement firebaseLogout
-    throw UnimplementedError();
+  Future<void> firebaseLogout() async {
+    try {
+      _auth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Future<User?> firebaseCheckAuth() async {
+    try {
+      final user = _auth.currentUser;
+      return user;
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 }

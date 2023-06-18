@@ -6,7 +6,7 @@ import 'package:riverpod/riverpod.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  static const name = 'home-screen';
+  static const name = 'home';
 
   @override
   Widget build(BuildContext context) {
