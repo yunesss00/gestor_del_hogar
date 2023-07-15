@@ -31,6 +31,11 @@ final goRouterProvider = Provider((ref) {
         name: HomeScreen.name,
         builder: (context, state) => const HomeScreen(),
       ),
+      GoRoute(
+        path: '/my-home-screen',
+        name: MyHomeScreen.name,
+        builder: (context, state) => const MyHomeScreen(),
+      ),
     ],
     redirect: (context, state) {
       final isGoingTo = state.matchedLocation;

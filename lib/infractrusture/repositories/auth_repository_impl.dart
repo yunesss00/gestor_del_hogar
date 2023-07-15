@@ -33,4 +33,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<User?> firebaseCheckAuth() {
     return dataSource.firebaseCheckAuth();
   }
+  
+  @override
+  Future<UserEntity?> getCurrentUser() {
+    return dataSource.getCurrentUser();
+  }
 }

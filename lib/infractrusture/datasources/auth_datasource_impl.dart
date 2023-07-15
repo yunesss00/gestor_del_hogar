@@ -87,4 +87,22 @@ class AuthDataSourceImpl extends AuthDataSource {
     }
     return null;
   }
+
+  @override
+  Future<UserEntity?> getCurrentUser() async {
+    UserEntity? user ;
+
+    try {
+      final firebaseUser = _auth.currentUser;
+      var url = '/user/find';
+      var parameters = {'email': firebaseUser!.email};
+
+      var response = await dio.get(url, queryParameters: parameters);
+
+      user = UserMapper.userJsonToEntity(response.data);
+    } catch (e) {
+      print(e);
+    }
+    return user;
+  }
 }
