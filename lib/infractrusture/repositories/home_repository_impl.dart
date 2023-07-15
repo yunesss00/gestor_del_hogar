@@ -7,7 +7,7 @@ class HomeRespositoryImpl extends HomeRepository {
       : dataSource = dataSource ?? HomeDataSourceImpl();
 
   @override
-  Future<Home> create(String name, int creator) {
+  Future<Home?> create(String name, int creator) {
     return dataSource.create(name, creator);
   }
 }
