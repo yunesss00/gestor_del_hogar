@@ -62,9 +62,25 @@ class _SideMenuState extends State<SideMenu> {
           child: Divider(),
         ),
 
-        const Padding(
-          padding: EdgeInsets.fromLTRB(28, 10, 16, 10),
-          child: Text('Otras opciones'),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(28, 10, 16, 10),
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.home_rounded),
+              label: const Text('Mi hogar'))
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(28, 10, 16, 10),
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.build_rounded ),
+              label: const Text('Opciones'))
+          ),
         ),
 
         

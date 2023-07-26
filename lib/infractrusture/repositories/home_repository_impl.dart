@@ -10,4 +10,14 @@ class HomeRespositoryImpl extends HomeRepository {
   Future<Home?> create(String name, int creator) {
     return dataSource.create(name, creator);
   }
+
+  @override
+  Future<void> addParticipants(int homeId, int participant) {
+    return dataSource.addParticipants(homeId, participant);
+  }
+  
+  @override
+  Future<Home?> findMyHome(int user) {
+    return dataSource.findMyHome(user);
+  }
 }
