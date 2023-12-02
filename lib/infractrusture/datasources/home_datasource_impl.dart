@@ -30,7 +30,7 @@ class HomeDataSourceImpl extends HomeDataSource {
   Future<void> addParticipants(int homeId, int participant) async {
     try {
       await dio.post('/home/participants',
-          data: {'userid': participant, 'homeid': homeId, 'deleted': 0});
+          data: {'userId': participant, 'homeId': homeId, 'deleted': 0});
     } catch (e) {
       print(e);
     }

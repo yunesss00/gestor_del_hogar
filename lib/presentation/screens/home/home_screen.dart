@@ -79,7 +79,7 @@ class _CreateHomeForm extends ConsumerWidget {
               text: 'Crear',
               onPressed: () {
                 ref.read(createHomeFormProvider.notifier).onFormSubmit();
-                context.push('my-home-screen');
+                context.push('/my-home-screen');
               },
               buttonColor: Theme.of(context).primaryColor,
             ),
