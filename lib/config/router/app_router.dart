@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestor_del_hogar/config/router/app_router_notifier.dart';
-import 'package:gestor_del_hogar/presentation/providers/auth/auth_provider.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:gestor_del_hogar/presentation/screens/screens.dart';
+import '../../modulos/auth/screens/check_auth_status_screen.dart';
+import '../../modulos/auth/screens/login_screen.dart';
+import '../../modulos/auth/screens/register_screen.dart';
+import '../../modulos/home/screens/home_screen.dart';
+import '../../modulos/home/screens/my_home_screen.dart';
+
 
 final goRouterProvider = Provider((ref) {
   final goRouterNotifier = ref.read(goRouterNotifierProvider);
@@ -38,19 +42,6 @@ final goRouterProvider = Provider((ref) {
       ),
     ],
     redirect: (context, state) {
-      final isGoingTo = state.matchedLocation;
-      final authStatus = goRouterNotifier.authStatus;
-
-      if (isGoingTo == '/splash' && authStatus == AuthStatus.cheking) return null;
-
-      if (authStatus == AuthStatus.notAuthenticated) {
-        if (isGoingTo == '/login' || isGoingTo == '/register') return null;
-        return '/login';
-      }
-
-      if (authStatus == AuthStatus.authenticated) {
-        if (isGoingTo == '/login' || isGoingTo == '/register' || isGoingTo == '/splash') return '/home-screen';
-      }
 
       return null;
     },

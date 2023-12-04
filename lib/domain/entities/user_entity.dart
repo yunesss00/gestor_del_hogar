@@ -1,65 +1,75 @@
-class UserEntity {
-  int id;
-  String firstName;
-  String lastName1;
-  String lastName2;
-  String email;
-  String photo;
+import 'package:gestor_del_hogar/domain/entities/itinerary.dart';
+import 'package:gestor_del_hogar/domain/entities/task.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-  UserEntity({
-    required this.id,
-    required this.firstName,
-    required this.lastName1,
-    required this.lastName2,
-    required this.email,
-    this.photo = '',
+part 'user_entity.g.dart';
+
+@JsonSerializable()
+class UserEntity {
+  final int? id;
+  final String? firstName;
+  final String? lastName1;
+  final String? lastName2;
+  final String? email;
+  final String? photo;
+  final List<Itinerary>? lstItineraries;
+  final List<Task>? lstTasks;
+
+  const UserEntity({
+    this.id,
+    this.firstName,
+    this.lastName1,
+    this.lastName2,
+    this.email,
+    this.photo,
+    this.lstItineraries,
+    this.lstTasks,
   });
 
-  // Getter para id
-  int get getId => id;
+  factory UserEntity.fromJson(Map<String, dynamic> json) =>
+      _$UserEntityFromJson(json);
 
-  // Setter para id
-  set setId(int newId) {
-    id = newId;
-  }
+  Map<String, dynamic> toJson() => _$UserEntityToJson(this);
+}
 
-  // Getter para firstName
-  String get getFirstName => firstName;
+@JsonSerializable()
+class LstItineraries {
+  final int? id;
+  final int? homeId;
+  final String? name;
+  final List<LstTasks>? lstTasks;
 
-  // Setter para firstName
-  set setFirstName(String newFirstName) {
-    firstName = newFirstName;
-  }
+  const LstItineraries({
+    this.id,
+    this.homeId,
+    this.name,
+    this.lstTasks,
+  });
 
-  // Getter para lastName1
-  String get getLastName1 => lastName1;
+  factory LstItineraries.fromJson(Map<String, dynamic> json) =>
+      _$LstItinerariesFromJson(json);
 
-  // Setter para lastName1
-  set setLastName1(String newLastName1) {
-    lastName1 = newLastName1;
-  }
+  Map<String, dynamic> toJson() => _$LstItinerariesToJson(this);
+}
 
-  // Getter para lastName2
-  String get getLastName2 => lastName2;
+@JsonSerializable()
+class LstTasks {
+  final int? id;
+  final int? homeId;
+  final String? name;
+  final int? creator;
+  final int? done;
 
-  // Setter para lastName2
-  set setLastName2(String newLastName2) {
-    lastName2 = newLastName2;
-  }
+  const LstTasks({
+    this.id,
+    this.homeId,
+    this.name,
+    this.creator,
+    this.done,
+  });
 
-  // Getter para email
-  String get getEmail => email;
+  factory LstTasks.fromJson(Map<String, dynamic> json) =>
+      _$LstTasksFromJson(json);
 
-  // Setter para email
-  set setEmail(String newEmail) {
-    email = newEmail;
-  }
-
-  // Getter para photo
-  String get getPhoto => photo;
-
-  // Setter para photo
-  set setPhoto(String newPhoto) {
-    photo = newPhoto;
-  }
+  Map<String, dynamic> toJson() => _$LstTasksToJson(this);
 }

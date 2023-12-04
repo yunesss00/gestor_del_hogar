@@ -1,15 +1,21 @@
-import 'package:gestor_del_hogar/domain/domain.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'product.g.dart';
+
+@JsonSerializable()
 class Product {
-  int id;
-  String name;
-  double productPrice;
-  List<ShoppingList> lstShoppingLists;
+  final int? id;
+  final String? name;
+  final double? productPrice;
 
-  Product({
-    required this.id,
-    required this.name,
-    required this.productPrice,
-    required this.lstShoppingLists,
+  const Product({
+    this.id,
+    this.name,
+    this.productPrice,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

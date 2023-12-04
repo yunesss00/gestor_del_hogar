@@ -1,1 +1,0 @@
-class HomeError implements Exception {}
