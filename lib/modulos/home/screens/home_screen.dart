@@ -4,7 +4,7 @@ import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   static const name = 'home';
 
@@ -71,9 +71,7 @@ class _CreateHomeForm extends StatelessWidget {
               label: 'Nombre hogar',
                   controller: controllerName,
                   validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Campo obligatorio";
-                    }
+                    if (value == null || value.trim().isEmpty) return "Campo obligatorio";
                   }
             )),
             const SizedBox(
@@ -85,7 +83,7 @@ class _CreateHomeForm extends StatelessWidget {
                 onPressed: () {
                   homeController.create(controllerName.text);
 
-                  //context.push('/my-home-screen');
+                  context.push('/my-home-screen');
                 },
                 buttonColor: Theme.of(context).primaryColor,
               ),

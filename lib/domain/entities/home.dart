@@ -1,4 +1,3 @@
-import 'package:gestor_del_hogar/domain/domain.dart';
 import 'package:gestor_del_hogar/domain/entities/shopping_list.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';

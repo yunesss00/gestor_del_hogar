@@ -17,8 +17,9 @@ class AuthDataSourceImpl extends AuthDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  Future<UserEntity> register(String firstName, String lastName1,
+  Future<UserEntity?> register(String firstName, String lastName1,
       String lastName2, String email) async {
+    UserEntity? user;
     try {
       final response = await dio.post('/user', data: {
         'firstName': firstName,
@@ -27,13 +28,13 @@ class AuthDataSourceImpl extends AuthDataSource {
         'email': email
       });
 
-      final user = UserMapper.userJsonToEntity(response.data);
+     user = UserEntity.fromJson(response.data);
 
-      return user;
     } catch (e) {
-
-
+      print(e);
     }
+    return user;
+
   }
 
   @override
@@ -106,7 +107,7 @@ class AuthDataSourceImpl extends AuthDataSource {
 
       var response = await dio.get(url, queryParameters: parameters);
 
-      user = UserMapper.userJsonToEntity(response.data);
+      user = UserEntity.fromJson(response.data);
     } catch (e) {
       print(e);
     }

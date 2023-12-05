@@ -10,14 +10,16 @@ class AuthController {
   AuthController();
 
 
-  void register (String firstName, String lastName1, String lastName2, String email){
-
+  void register (String firstName, String lastName1, String lastName2, String email, String password){
+    WebServicesManager.getAuthdataSource().register(firstName, lastName1, lastName2, email);
+    WebServicesManager.getAuthdataSource().firebaseCreate(email,password);
   }
 
-  Future<User?> firebaseCreate(String email, String password);
-  Future<User?> firebaseLogin(String email, String password);
-  Future<void> firebaseLogout();
-  Future<User?> firebaseCheckAuth();
-  Future<UserEntity?> getCurrentUser();
+  void login(String email, String password) {
+    WebServicesManager.getAuthdataSource().firebaseLogin(email, password);
+  }
 
+  void logout() {
+    WebServicesManager.getAuthdataSource().firebaseLogout();
+  }
 }

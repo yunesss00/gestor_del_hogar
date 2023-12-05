@@ -6,6 +6,6 @@ abstract class HomeDataSource {
 
 
   Future<Home?> create(String name, UserEntity currentUser);
-  Future<void> addParticipants(it? homeId, int? participant);
+  Future<void> addParticipants(int? homeId, int? participant);
   Future<Home?> findMyHome(UserEntity? currentUser);
 }
