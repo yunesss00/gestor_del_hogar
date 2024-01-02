@@ -10,16 +10,30 @@ class AuthController {
   AuthController();
 
 
-  void register (String firstName, String lastName1, String lastName2, String email, String password){
-    WebServicesManager.getAuthdataSource().register(firstName, lastName1, lastName2, email);
-    WebServicesManager.getAuthdataSource().firebaseCreate(email,password);
+  Future<bool> register (String firstName, String lastName1, String lastName2, String email, String password) async {
+    final userEntity = await WebServicesManager.getAuthdataSource().register(firstName, lastName1, lastName2, email);
+    final user = await WebServicesManager.getAuthdataSource().firebaseCreate(email,password);
+    return (user==null || userEntity== null) ? false : true;
+
   }
 
-  void login(String email, String password) {
-    WebServicesManager.getAuthdataSource().firebaseLogin(email, password);
+  Future<bool> login(String email, String password) async {
+    final user = await WebServicesManager.getAuthdataSource().firebaseLogin(email, password);
+    return user==null ? false : true;
   }
 
-  void logout() {
+  void logout()  {
     WebServicesManager.getAuthdataSource().firebaseLogout();
   }
+
+  Future<bool> checkStatus() async {
+    final user = await WebServicesManager.getAuthdataSource().firebaseCheckAuth();
+    if (user!=null) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
 }

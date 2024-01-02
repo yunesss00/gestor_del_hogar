@@ -12,6 +12,8 @@ class AuthDataSourceImpl extends AuthDataSource {
     return _instance;
   }
 
+  AuthDataSourceImpl();
+
   final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,7 +33,7 @@ class AuthDataSourceImpl extends AuthDataSource {
      user = UserEntity.fromJson(response.data);
 
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
     return user;
 
@@ -53,7 +55,7 @@ class AuthDataSourceImpl extends AuthDataSource {
         print('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
     return user;
   }
@@ -81,7 +83,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     try {
       _auth.signOut();
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
   }
 
@@ -91,7 +93,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       final user = _auth.currentUser;
       return user;
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
     return null;
   }
@@ -109,7 +111,7 @@ class AuthDataSourceImpl extends AuthDataSource {
 
       user = UserEntity.fromJson(response.data);
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
     return user;
   }
