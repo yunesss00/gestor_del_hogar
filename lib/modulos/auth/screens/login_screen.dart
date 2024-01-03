@@ -14,30 +14,33 @@ class LoginScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 70),
-            // Icon Banner
-            const Icon(
-              Icons.production_quantity_limits_rounded,
-              color: Colors.white,
-              size: 100,
-            ),
-            const SizedBox(height: 40),
-            Container(
-              height: size.height - 180, // 80 los dos sizebox y 100 el ícono
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.black, // Fondo negro
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(100)),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 70),
+              // Icon Banner
+              const Icon(
+                Icons.production_quantity_limits_rounded,
+                color: Colors.white,
+                size: 100,
               ),
-              child: const _LoginForm(),
-            )
-          ],
+              const SizedBox(height: 40),
+              Container(
+                height: size.height - 180, // 80 los dos sizebox y 100 el ícono
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.black, // Fondo negro
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(100)),
+                ),
+                child: const _LoginForm(),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -70,6 +73,7 @@ class _LoginForm extends StatelessWidget {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
                 if (!value.contains('@')) return "El correo no tiene formato válido.";
                 if (!value.contains('.')) return "El correo no tiene formato válido.";
+                return null;
               },
               keyboardType: TextInputType.emailAddress,
             ),
@@ -80,7 +84,8 @@ class _LoginForm extends StatelessWidget {
               controller: controllerPassword,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
-                if (value.length < 6) return "La contraseña es poco segura";
+                if (value.length < 6) return "La contraseña es demasiado corta";
+                return null;
               },
             ),
             const SizedBox(height: 30),
@@ -91,10 +96,14 @@ class _LoginForm extends StatelessWidget {
                 text: 'Iniciar sesión',
                 buttonColor: Colors.black,
                 onPressed: () async {
-                  if (await authController.login(controllerEmail.text, controllerPassword.text)) {
-                    context.push('/home-screen');
-                  } else {
-                    // Tratar el caso cuando el inicio de sesión falla
+                  if (_formKey.currentState!.validate()) {
+                    if (await authController.login(controllerEmail.text, controllerPassword.text)) {
+                      context.push('/home-screen');
+                    }else{
+                      const snackBar = SnackBar(
+                          content: Text('Usuario no encontrado'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   }
                 },
               ),

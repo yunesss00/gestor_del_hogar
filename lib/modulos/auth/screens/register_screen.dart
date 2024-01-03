@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
     final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.requestFocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
@@ -31,7 +31,7 @@ class RegisterScreen extends StatelessWidget {
               const SizedBox(height: 80),
 
               Container(
-                height: size.height, // 80 los dos sizebox y 100 el ícono
+                height: size.height + 100, // 80 los dos sizebox y 100 el ícono
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.black, // Fondo negro
@@ -76,6 +76,7 @@ class _RegisterForm extends StatelessWidget {
               controller: controllerName,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
+                return null;
               },
             ),
             const SizedBox(height: 10),
@@ -85,6 +86,7 @@ class _RegisterForm extends StatelessWidget {
               controller: controllerLastName1,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
+                return null;
               },
             ),
             const SizedBox(height: 10),
@@ -94,6 +96,7 @@ class _RegisterForm extends StatelessWidget {
               controller: controllerLastName2,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
+                return null;
               },
             ),
             const SizedBox(height: 10),
@@ -105,6 +108,7 @@ class _RegisterForm extends StatelessWidget {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
                 if (!value.contains('@')) return "El correo no tiene formato válido.";
                 if (!value.contains('.')) return "El correo no tiene formato válido.";
+                return null;
               },
             ),
             const SizedBox(height: 10),
@@ -115,6 +119,7 @@ class _RegisterForm extends StatelessWidget {
               validator: (value) {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
                 if (value.length < 6) return "La contraseña es poco segura";
+                return null;
               },
             ),
             const SizedBox(height: 10),
@@ -126,6 +131,7 @@ class _RegisterForm extends StatelessWidget {
                 if (value == null || value.trim().isEmpty) return "Campo obligatorio";
                 if (value.length < 6) return "La contraseña es poco segura";
                 if (value != controllerPassword.text) return "Las contraseñas no coinciden";
+                return null;
               },
             ),
             const SizedBox(height: 30),
@@ -136,17 +142,29 @@ class _RegisterForm extends StatelessWidget {
                 text: 'Registrarse',
                 buttonColor: Colors.black,
                 onPressed: () async {
-                  if (await authController.register(
-                      controllerName.text,
-                      controllerLastName1.text,
-                      controllerLastName2.text,
-                      controllerEmail.text,
-                      controllerPassword2.text)) {
-                    context.push('/home-screen');
+                  if (_formKey.currentState!.validate()){
+                    if (await authController.register(
+                        controllerName.text,
+                        controllerLastName1.text,
+                        controllerLastName2.text,
+                        controllerEmail.text,
+                        controllerPassword2.text)) {
+                      context.push('/home-screen');
+                    } else {
+                      const snackBar = SnackBar(
+                        content: Text('Error al crear el usuario'),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   }
+
+
+
                 },
               ),
             ),
+
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

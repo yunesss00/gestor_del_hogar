@@ -20,7 +20,8 @@ class CheckAuthStatusScreen extends StatelessWidget {
           // Utilizamos addPostFrameCallback para ejecutar la lógica después de construir los widgets
           WidgetsBinding.instance!.addPostFrameCallback((_) {
             if (snapshot.data == true) {
-              context.go('/home-screen');
+              context.go('/login-screen');
+              //TODO
             } else {
               context.go('/login-screen');
             }
