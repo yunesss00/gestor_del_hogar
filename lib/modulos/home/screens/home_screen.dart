@@ -3,50 +3,63 @@ import 'package:gestor_del_hogar/modulos/home/screens/home_controller.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../domain/entities/home.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   static const name = 'home';
-
 
   @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
 
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('Home', style: Theme.of(context).textTheme.titleMedium),
-          centerTitle: true),
-      body: Center(
-          child: Text('Entra a un hogar o crea el tuyo propio',
-              style: Theme.of(context).textTheme.bodyLarge)),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _createHome(context);
-        },
-        tooltip: 'Crear hogar',
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.add),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+            title: Text('Home', style: Theme.of(context).textTheme.titleMedium),
+            centerTitle: true),
+        body: Center(
+            child: Text('Entra a un hogar o crea el tuyo propio',
+                style: Theme.of(context).textTheme.bodyLarge)),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _createHome(context);
+          },
+          tooltip: 'Crear hogar',
+          backgroundColor: Theme.of(context).primaryColor,
+          child: const Icon(Icons.add),
+        ),
+        drawer: SideMenu(scaffoldKey: scaffoldKey),
       ),
-      drawer: SideMenu(scaffoldKey: scaffoldKey),
     );
   }
 }
 
 _createHome(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+
   return showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: SizedBox(height: 1000, child: _CreateHomeForm()),
+        return GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: SizedBox(height: size.height -150,
+                child: const _CreateHomeForm()),
+          ),
         );
       });
 }
 
 class _CreateHomeForm extends StatelessWidget {
-
+  const _CreateHomeForm();
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 
+import '../../home/screens/home_controller.dart';
 import 'auth_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -53,6 +54,7 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final AuthController authController = AuthController();
+    final HomeController homeController = HomeController();
     final TextEditingController controllerEmail = TextEditingController();
     final TextEditingController controllerPassword = TextEditingController();
     final textStyles = Theme.of(context).textTheme;
@@ -98,7 +100,14 @@ class _LoginForm extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     if (await authController.login(controllerEmail.text, controllerPassword.text)) {
-                      context.push('/home-screen');
+                      if (await homeController.findMyHome() !=null){
+                        // ignore: use_build_context_synchronously
+                        context.go('/my-home-screen');
+                      }else{
+                        context.push('/home-screen');
+                      }
+
+
                     }else{
                       const snackBar = SnackBar(
                           content: Text('Usuario no encontrado'));

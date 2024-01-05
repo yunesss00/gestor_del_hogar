@@ -35,7 +35,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   Future<void> addParticipants(int? homeId, int? participant) async {
     try {
       await dio.post('/home/participants',
-          data: {'userId': participant, 'homeId': homeId, 'deleted': 0});
+          queryParameters: {'userId': participant, 'homeId': homeId, 'deleted': 0});
     } catch (e) {
       print(e);
     }
@@ -46,7 +46,7 @@ class HomeDataSourceImpl implements HomeDataSource {
     Home? home;
     try {
       var url = '/home/myHome';
-      var parameters = {'user': currentUser?.id};
+      var parameters = {'userId': currentUser?.id};
 
       var response = await dio.get(url, queryParameters: parameters);
 
@@ -55,6 +55,23 @@ class HomeDataSourceImpl implements HomeDataSource {
       print(e);
     }
     return home;
+  }
+
+  @override
+  List<int> getWeekDays() {
+    DateTime now = DateTime.now();
+
+    // Obtener el primer día de la semana (lunes)
+    DateTime firsDay = now.subtract(Duration(days: now.weekday - 1));
+
+    // Crear un array de 7 días desde el lunes hasta el domingo
+    List<int> weekDays = [];
+    for (int i = 0; i < 7; i++) {
+      DateTime day = firsDay.add(Duration(days: i));
+      weekDays.add(day.day);
+    }
+
+    return weekDays;
   }
 
 }

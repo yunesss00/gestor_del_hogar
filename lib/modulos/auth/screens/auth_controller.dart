@@ -22,7 +22,7 @@ class AuthController {
     return user==null ? false : true;
   }
 
-  void logout()  {
+  Future<void> logout()  async {
     WebServicesManager.getAuthdataSource().firebaseLogout();
   }
 

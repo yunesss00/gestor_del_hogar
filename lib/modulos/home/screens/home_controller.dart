@@ -4,8 +4,6 @@ import 'dart:ffi';
 
 import 'package:gestor_del_hogar/core/web_services/web_services_manager.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
-import 'package:gestor_del_hogar/modulos/home/datasource/home_datasource.dart';
-import 'package:gestor_del_hogar/modulos/home/datasource/home_datasource_impl.dart';
 
 import '../../../domain/entities/home.dart';
 
@@ -28,6 +26,10 @@ class HomeController {
 
   Future<void> addParticipants(int userId, int homeId) async {
     WebServicesManager.getHomedataSource().addParticipants(homeId, userId);
+  }
+
+  List<int> getWeekDays(){
+    return WebServicesManager.getHomedataSource().getWeekDays();
   }
 
 
