@@ -6,6 +6,7 @@ import 'package:gestor_del_hogar/core/web_services/web_services_manager.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 
 import '../../../domain/entities/home.dart';
+import '../../../domain/entities/task.dart';
 
 class HomeController {
 
@@ -28,10 +29,20 @@ class HomeController {
     WebServicesManager.getHomedataSource().addParticipants(homeId, userId);
   }
 
-  List<int> getWeekDays(){
-    return WebServicesManager.getHomedataSource().getWeekDays();
+  List<DateTime> getWeekDays(){
+    DateTime now = DateTime.now();
+
+    // Obtener el primer día de la semana (lunes)
+    DateTime firsDay = now.subtract(Duration(days: now.weekday - 1));
+
+    // Crear un array de 7 días desde el lunes hasta el domingo
+    List<DateTime> weekDays = [];
+    for (int i = 0; i < 7; i++) {
+      DateTime day = firsDay.add(Duration(days: i));
+      weekDays.add(day);
+    }
+
+    return weekDays;
   }
-
-
 
 }

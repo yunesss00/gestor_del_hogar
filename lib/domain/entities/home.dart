@@ -1,4 +1,5 @@
 import 'package:gestor_del_hogar/domain/entities/shopping_list.dart';
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,9 +10,10 @@ class Home {
   final int? id;
   final String? name;
   final int? creator;
-  final String? description;
+  final dynamic description;
   final List<UserEntity>? lstUsers;
   final List<ShoppingList>? lstShoppingList;
+  final List<Task>? lstTasks;
 
   const Home({
     this.id,
@@ -20,6 +22,7 @@ class Home {
     this.description,
     this.lstUsers,
     this.lstShoppingList,
+    this.lstTasks,
   });
 
   factory Home.fromJson(Map<String, dynamic> json) =>

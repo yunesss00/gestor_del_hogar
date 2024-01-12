@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_del_hogar/modulos/home/screens/tasks_popup.dart';
 
+import '../../../domain/entities/home.dart';
+import '../../../domain/entities/task.dart';
 import '../../../presentation/shared/widgets/side_menu.dart';
 import '../../../presentation/shared/widgets/weekDay_card.dart';
+import '../../tasks/screens/task_controller.dart';
 import 'home_controller.dart';
 
 class MyHomeScreen extends StatelessWidget {
@@ -64,7 +68,7 @@ _containerWeekDays(BuildContext context) {
   final HomeController homeController = HomeController();
   final weekDays = homeController.getWeekDays();
   final DateTime now = DateTime.now();
-  final string_weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  final stringWeekdays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
   return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -73,16 +77,29 @@ _containerWeekDays(BuildContext context) {
         children: List.generate(7, (index) {
           return GestureDetector(
             onTap: () {
-
+              _showPopup(context,weekDays[index]);
             },
             child: WeekDayCard(
-              day: weekDays[index],
-              weekDay: string_weekDays[index],
+              day: weekDays[index].day,
+              weekDay: stringWeekdays[index],
               haveTask: true,
               isToday: weekDays[index]==now.day,
             ),
           );
         }),
       )
+  );
+}
+
+Future<void> _showPopup(BuildContext context, DateTime currentDay) async {
+
+  TaskController taskController = TaskController();
+  final tasks = await taskController.getDayTasks(currentDay);
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return TasksPopup(tasks: tasks,);
+    },
   );
 }

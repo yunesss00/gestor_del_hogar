@@ -10,12 +10,15 @@ Home _$HomeFromJson(Map<String, dynamic> json) => Home(
       id: json['id'] as int?,
       name: json['name'] as String?,
       creator: json['creator'] as int?,
-      description: json['description'] as String?,
+      description: json['description'],
       lstUsers: (json['lstUsers'] as List<dynamic>?)
           ?.map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       lstShoppingList: (json['lstShoppingList'] as List<dynamic>?)
           ?.map((e) => ShoppingList.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      lstTasks: (json['lstTasks'] as List<dynamic>?)
+          ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -26,6 +29,7 @@ Map<String, dynamic> _$HomeToJson(Home instance) => <String, dynamic>{
       'description': instance.description,
       'lstUsers': instance.lstUsers,
       'lstShoppingList': instance.lstShoppingList,
+      'lstTasks': instance.lstTasks,
     };
 
 LstUsers _$LstUsersFromJson(Map<String, dynamic> json) => LstUsers(

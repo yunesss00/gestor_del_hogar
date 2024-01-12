@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:animate_do/animate_do.dart';
 
 class WeekDayCard extends StatelessWidget {
   final int day;
@@ -26,6 +25,14 @@ class WeekDayCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+
+            Text(
+              weekDay,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 12),
             Text(
               '$day',
               style: const TextStyle(
@@ -34,13 +41,6 @@ class WeekDayCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              weekDay,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 12),
             if (haveTask)
               const Align(
                 alignment: Alignment.topRight,

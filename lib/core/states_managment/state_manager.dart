@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../modulos/home/screens/home_controller.dart';
 import '../../modulos/auth/screens/auth_controller.dart';
+import '../../modulos/tasks/screens/task_controller.dart';
 
 
 class StateManager{
@@ -12,6 +13,8 @@ class StateManager{
   static void initializeApp() {
    GetIt.instance.registerLazySingleton<HomeController>(() => HomeController());
    GetIt.instance.registerLazySingleton<AuthController>(() => AuthController());
+   GetIt.instance.registerLazySingleton<TaskController>(() => TaskController());
+
 
 
   }

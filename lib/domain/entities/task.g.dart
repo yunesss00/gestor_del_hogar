@@ -12,7 +12,6 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       name: json['name'] as String?,
       description: json['description'] as String?,
       creator: json['creator'] as int?,
-      done: json['done'] as int?,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -21,5 +20,4 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'creator': instance.creator,
-      'done': instance.done,
     };

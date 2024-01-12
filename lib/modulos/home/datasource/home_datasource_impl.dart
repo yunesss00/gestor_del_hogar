@@ -30,7 +30,7 @@ class HomeDataSourceImpl implements HomeDataSource {
     }
     return home;
   }
-
+  
   @override
   Future<void> addParticipants(int? homeId, int? participant) async {
     try {
@@ -57,21 +57,6 @@ class HomeDataSourceImpl implements HomeDataSource {
     return home;
   }
 
-  @override
-  List<int> getWeekDays() {
-    DateTime now = DateTime.now();
 
-    // Obtener el primer día de la semana (lunes)
-    DateTime firsDay = now.subtract(Duration(days: now.weekday - 1));
-
-    // Crear un array de 7 días desde el lunes hasta el domingo
-    List<int> weekDays = [];
-    for (int i = 0; i < 7; i++) {
-      DateTime day = firsDay.add(Duration(days: i));
-      weekDays.add(day.day);
-    }
-
-    return weekDays;
-  }
 
 }
