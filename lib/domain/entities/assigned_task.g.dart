@@ -36,7 +36,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       homeId: json['homeId'] as int?,
       name: json['name'] as String?,
       creator: json['creator'] as int?,
-      description: json['description'] as String?,
+      description: json['description'] as String,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{

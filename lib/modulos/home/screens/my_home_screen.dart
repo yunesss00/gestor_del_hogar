@@ -34,14 +34,7 @@ class MyHomeScreen extends StatelessWidget {
                 _containerWeekDays(context),
 
                 SizedBox(height: 16.0),
-                Container(
-                  width: double.infinity,
-                  height: 100.0,
-                  color: Colors.green,
-                  child: Center(
-                    child: Text('Contenedor 2'),
-                  ),
-                ),
+                _containerTodayTasks(context),
                 SizedBox(height: 16.0),
                 Container(
                   width: double.infinity,
@@ -63,6 +56,69 @@ class MyHomeScreen extends StatelessWidget {
   }
 }
 
+_containerTodayTasks(BuildContext context) {
+final tasks = getTasks();
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text('Tareas de hoy'),
+      const SizedBox(height: 16.0),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.white10,  // Color de fondo del Container
+          borderRadius: BorderRadius.circular(10.0),  // Radio de redondeo de las esquinas
+        ),
+        child: SizedBox(
+          height: 100.0,
+          child: FutureBuilder(
+            future: tasks,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Acción que se realiza al tocar la tarea
+                        print('Tocaste la tarea: ${snapshot.data[index].task!.name}');
+                      },
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: false,  // Agrega el estado del checkbox según tus necesidades
+                            onChanged: (bool? value) {
+                              // Acción que se realiza al cambiar el estado del checkbox
+                              print('Estado del checkbox: $value');
+                            },
+                          ),
+                          Text(
+                            snapshot.data[index].task!.name,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ),
+
+      ),
+
+    ],
+  );
+}
+
+Future<dynamic> getTasks()  async {
+  final TaskController taskController = TaskController();
+  return await taskController.getDayTasks(DateTime.now());
+
+}
 
 _containerWeekDays(BuildContext context) {
   final HomeController homeController = HomeController();

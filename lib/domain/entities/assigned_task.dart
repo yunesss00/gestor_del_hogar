@@ -36,14 +36,14 @@ class Task {
   final int? homeId;
   final String? name;
   final int? creator;
-  final String? description;
+  final String description;
 
   const Task({
     this.id,
     this.homeId,
     this.name,
     this.creator,
-    this.description,
+    required this.description,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) =>
