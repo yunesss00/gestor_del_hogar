@@ -23,18 +23,20 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<List<AssignedTask>?> getDayTasks(Home home,DateTime currentDay) async {
 
     List<AssignedTask>? tasks;
-    String date = currentDay.toString();
-
+    String date_str =
+    currentDay.toString().substring(0, 10);
     try {
       var url = '/task/assigned/home';
       var parameters = {
         'homeId': home.id,
-        'date': currentDay.toString()
+        'date': date_str
       };
 
       var response = await dio.get(url, queryParameters: parameters);
-
-      tasks = AssignedTask.fromJson(response.data) as List<AssignedTask>?;
+      tasks = (response.data as List<dynamic>)
+          .map((jsonItem) => AssignedTask.fromJson(jsonItem))
+          .toList();
+      //tasks = AssignedTask.fromJson(response.data) as List<AssignedTask>?;
     } catch (e) {
       print(e);
     }

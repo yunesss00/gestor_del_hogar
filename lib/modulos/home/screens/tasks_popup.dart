@@ -15,18 +15,33 @@ class TasksPopup extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Tareas'),
+      title: const Text('Tareas', textAlign: TextAlign.center,style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),),
       content: Container(
         width: double.maxFinite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: tasks?.map((AssignedTask task) {
+          children: tasks?.isEmpty ?? true ? [
+            const Text('No hay tareas asignadas para este día'),
+          ] :
+          tasks?.map((AssignedTask task) {
             return ListTile(
-              title: Text(task.task!.name!),
+              title: Row(
+                children: [
+                  Expanded(child: Text(task.task!.name!,style: const TextStyle(fontWeight: FontWeight.bold))),
+                  const SizedBox(width: 16.0),
+                  Row(
+                    children: [
+                      const Text("Realizada: ", style: TextStyle(fontSize: 10.0),  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                      ),
+                      task.done == 1 ? const Icon(Icons.check) : const Icon(Icons.close),
+                    ]
+                  )
+                ],
+              ),
               subtitle: Text(task.task!.description!),
-
             );
+
           }).toList() ?? [],
 
         ),
