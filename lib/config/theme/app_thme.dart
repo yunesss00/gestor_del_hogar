@@ -9,8 +9,9 @@ class AppTheme {
   ThemeData getTheme() => ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: Colors.deepPurple,
-
+    primaryColor: const Color(0xFF673AB7),
+    secondaryHeaderColor: const Color.fromRGBO(237, 59, 230, 1),
+   
     fontFamily: 'Montserrat',
 
     textTheme: const TextTheme(
@@ -22,13 +23,18 @@ class AppTheme {
       bodySmall: TextStyle(fontSize: 10.0),
     ),
     
-    
-
-
-
-
-
   );
-
+/**
+ * MAS COLORES  
+ * #673AB7
+ * 
+ * #ED3BE6
+ * 
+ * #B73BED
+ * 
+ * #423BED
+ * 
+ * #ED3B7C
+ */
 
 }

@@ -18,8 +18,9 @@ class WeekDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Card(
-      elevation: isToday==true ? 10 : 2, // Ajusta la elevación según tus preferencias
+      color: isToday ? Theme.of(context).primaryColor : null, 
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -42,12 +43,12 @@ class WeekDayCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             if (haveTask)
-              const Align(
+              Align(
                 alignment: Alignment.topRight,
                 child: Icon(
                   size: 10,
                   Icons.circle,
-                  color: Colors.red, // Puedes cambiar el color según tus preferencias
+                  color: Theme.of(context).secondaryHeaderColor, // Puedes cambiar el color según tus preferencias
                 ),
               ),
           ],

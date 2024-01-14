@@ -9,4 +9,6 @@ abstract class TaskDataSource {
 
 
   Future<List<AssignedTask>?> getDayTasks(Home home,DateTime currentDay) ;
+  Future<List<AssignedTask>?> getMyDayTasks(Home home,DateTime currentDay, UserEntity currentUser) ;
+  Future<List<int>?> getDotListTasks(Home home, DateTime initDay, DateTime endDay) ;
 }

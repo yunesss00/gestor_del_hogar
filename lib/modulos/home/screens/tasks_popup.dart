@@ -1,16 +1,15 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/assigned_task.dart';
-import '../../../domain/entities/task.dart';
 
 class TasksPopup extends StatelessWidget{
 
   final List<AssignedTask>? tasks;
 
   const TasksPopup({super.key, required this.tasks});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class TasksPopup extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: tasks?.isEmpty ?? true ? [
-            const Text('No hay tareas asignadas para este día'),
+            const Center(child: Text('No hay tareas asignadas para este día')),
           ] :
           tasks?.map((AssignedTask task) {
             return ListTile(
@@ -39,7 +38,7 @@ class TasksPopup extends StatelessWidget{
                   )
                 ],
               ),
-              subtitle: Text(task.task!.description!),
+              subtitle: Text(task.task!.description),
             );
 
           }).toList() ?? [],
@@ -52,7 +51,7 @@ class TasksPopup extends StatelessWidget{
             // Agregar lógica para cerrar el popup
             Navigator.of(context).pop();
           },
-          child: Text('Cerrar'),
+          child: const Text('Cerrar'),
 
         ),
         ElevatedButton(
@@ -61,7 +60,7 @@ class TasksPopup extends StatelessWidget{
             // Puedes abrir otro popup para ingresar información adicional
             // o realizar cualquier acción que desees.
           },
-          child: Text('Agregar'),
+          child: const Text('Agregar'),
         ),
       ],
     );
