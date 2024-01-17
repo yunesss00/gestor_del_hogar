@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gestor_del_hogar/modulos/auth/screens/auth_controller.dart';
+import 'package:gestor_del_hogar/modulos/auth/controller/auth_controller.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/home.dart';
-import '../../home/screens/home_controller.dart';
+import '../../home/controller/home_controller.dart';
 
 class CheckAuthStatusScreen extends StatelessWidget {
   const CheckAuthStatusScreen({Key? key});
@@ -12,7 +12,7 @@ class CheckAuthStatusScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
       future: _isLoggedIn(),
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(
@@ -24,9 +24,9 @@ class CheckAuthStatusScreen extends StatelessWidget {
           WidgetsBinding.instance!.addPostFrameCallback((_) async {
             if (snapshot.data == true) {
               if (await _haveHome()!=null){
-                context.push('/my-home-screen');
+                context.go('/my-home-screen');
               }else{
-                context.push('/home-screen');
+                context.go('/home-screen');
               }
             } else {
               context.push('/login-screen');

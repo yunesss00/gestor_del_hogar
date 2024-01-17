@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestor_del_hogar/modulos/home/screens/home_controller.dart';
+import 'package:gestor_del_hogar/modulos/home/controller/home_controller.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 

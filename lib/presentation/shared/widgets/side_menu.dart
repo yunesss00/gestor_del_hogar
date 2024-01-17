@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gestor_del_hogar/presentation/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../modulos/auth/screens/auth_controller.dart';
+import '../../../modulos/auth/controller/auth_controller.dart';
 
 class SideMenu extends StatefulWidget {
 

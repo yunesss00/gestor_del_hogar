@@ -11,6 +11,7 @@ class AppTheme {
     brightness: Brightness.dark,
     primaryColor: const Color(0xFF673AB7),
     secondaryHeaderColor: const Color.fromRGBO(237, 59, 230, 1),
+    hintColor: const Color.fromRGBO(183, 59, 237,1),
    
     fontFamily: 'Montserrat',
 
@@ -30,7 +31,7 @@ class AppTheme {
  * 
  * #ED3BE6
  * 
- * #B73BED
+ * #B73BED // Color.fromRGBO(183, 59, 237,1)
  * 
  * #423BED
  * 

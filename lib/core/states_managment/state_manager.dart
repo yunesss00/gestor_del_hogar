@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../modulos/home/screens/home_controller.dart';
-import '../../modulos/auth/screens/auth_controller.dart';
-import '../../modulos/tasks/screens/task_controller.dart';
+import '../../modulos/home/controller/home_controller.dart';
+import '../../modulos/auth/controller/auth_controller.dart';
+import '../../modulos/tasks/controller/task_controller.dart';
 
 
 class StateManager{

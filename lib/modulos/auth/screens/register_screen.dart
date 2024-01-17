@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestor_del_hogar/modulos/auth/screens/auth_controller.dart';
+import 'package:gestor_del_hogar/modulos/auth/controller/auth_controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 
@@ -149,7 +149,7 @@ class _RegisterForm extends StatelessWidget {
                         controllerLastName2.text,
                         controllerEmail.text,
                         controllerPassword2.text)) {
-                      context.push('/home-screen');
+                      context.go('/home-screen');
                     } else {
                       const snackBar = SnackBar(
                         content: Text('Error al crear el usuario'),

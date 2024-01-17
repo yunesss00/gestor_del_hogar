@@ -1,12 +1,10 @@
 
 
-import 'dart:ffi';
 
 import 'package:gestor_del_hogar/core/web_services/web_services_manager.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 
 import '../../../domain/entities/home.dart';
-import '../../../domain/entities/task.dart';
 
 class HomeController {
 

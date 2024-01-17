@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 
-import '../../home/screens/home_controller.dart';
-import 'auth_controller.dart';
+import '../../home/controller/home_controller.dart';
+import '../controller/auth_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key});
@@ -104,7 +104,7 @@ class _LoginForm extends StatelessWidget {
                         // ignore: use_build_context_synchronously
                         context.go('/my-home-screen');
                       }else{
-                        context.push('/home-screen');
+                        context.go('/home-screen');
                       }
 
 
