@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 class GenericCard extends StatelessWidget {
   final String name;
+  final String description;
   final IconButton icon1;
   final IconButton? icon2;
 
   const GenericCard({
     Key? key,
     required this.name,
+    required this.description,
     required this.icon1,
-    this.icon2,
+    this.icon2, 
   }) : super(key: key);
 
   @override
@@ -20,12 +22,13 @@ class GenericCard extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: Theme.of(context).textTheme.titleSmall),
+                  const SizedBox(height: 8),
+                  Text(description, style: Theme.of(context).textTheme.bodySmall)
+                ],
               ),
             ),
             icon1,

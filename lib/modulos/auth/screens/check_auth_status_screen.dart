@@ -6,6 +6,7 @@ import '../../../domain/entities/home.dart';
 import '../../home/controller/home_controller.dart';
 
 class CheckAuthStatusScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const CheckAuthStatusScreen({Key? key});
 
   @override
@@ -24,8 +25,10 @@ class CheckAuthStatusScreen extends StatelessWidget {
           WidgetsBinding.instance!.addPostFrameCallback((_) async {
             if (snapshot.data == true) {
               if (await _haveHome()!=null){
+                // ignore: use_build_context_synchronously
                 context.go('/my-home-screen');
               }else{
+                // ignore: use_build_context_synchronously
                 context.go('/home-screen');
               }
             } else {

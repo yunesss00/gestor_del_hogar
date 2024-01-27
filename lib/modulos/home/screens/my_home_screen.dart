@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_del_hogar/domain/entities/assigned_task.dart';
 import 'package:gestor_del_hogar/modulos/home/screens/tasks_popup.dart';
+import 'package:gestor_del_hogar/modulos/home/screens/today_tasks_widget.dart';
 import 'package:gestor_del_hogar/presentation/shared/shared.dart';
 
-import '../../../domain/entities/home.dart';
-import '../../../domain/entities/task.dart';
-import '../../../presentation/shared/widgets/side_menu.dart';
 import '../../../presentation/shared/widgets/weekDay_card.dart';
 import '../../tasks/controller/task_controller.dart';
 import '../controller/home_controller.dart';
+
+HomeController homeController = HomeController();
 
 class MyHomeScreen extends StatelessWidget {
   const MyHomeScreen({super.key});
@@ -22,7 +22,8 @@ class MyHomeScreen extends StatelessWidget {
     return GestureDetector(
       child: Scaffold(
         appBar: AppBar(
-            title: Text('Mi hogar', style: Theme.of(context).textTheme.titleMedium),
+            title: Text('Mi hogar',
+                style: Theme.of(context).textTheme.titleMedium),
             centerTitle: true),
         body: SingleChildScrollView(
           child: Padding(
@@ -47,8 +48,8 @@ class MyHomeScreen extends StatelessWidget {
                 _containerTodayTasks(context),
                 const SizedBox(height: 16.0),
                 Container(
-                    height:  100,
-                    width: MediaQuery.of(context).size.width - 16.0,
+                  height: 100,
+                  width: MediaQuery.of(context).size.width - 16.0,
                 )
                 //_containerRecentChanges(context),
 
@@ -57,14 +58,13 @@ class MyHomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar:  CustomBottomNavigation(key: scaffoldKey),
+        bottomNavigationBar: CustomBottomNavigation(key: scaffoldKey),
         drawer: SideMenu(scaffoldKey: scaffoldKey),
       ),
     );
   }
 
   _containerWeekDays(BuildContext context) async {
-    final HomeController homeController = HomeController();
     final weekDays = homeController.getWeekDays();
     final DateTime now = DateTime.now();
     final stringWeekdays = [
@@ -135,6 +135,7 @@ class MyHomeScreen extends StatelessWidget {
     TaskController taskController = TaskController();
     final tasks = await taskController.getMyDayTasks(currentDay);
 
+    // ignore: use_build_context_synchronously
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -160,7 +161,7 @@ class MyHomeScreen extends StatelessWidget {
                 10.0), // Radio de redondeo de las esquinas
           ),
           child: SizedBox(
-            height: 100.0,
+            height: 200.0,
             width: MediaQuery.of(context).size.width - 16.0,
             child: FutureBuilder(
               future: tasks,
@@ -178,40 +179,18 @@ class MyHomeScreen extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            _updateTask(snapshot.data[index]);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    _updateTask(snapshot.data[index]);
-                                  },
-                                  child: Container(
-                                    width: 12.0,
-                                    height: 12.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.white38,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                  ),
+                        return Row(
+                            children: [
+                              TodayTasksWidget(
+                                  task: snapshot.data[index],
                                 ),
-                                const SizedBox(width: 16.0),
-                                Text(
-                                  snapshot.data[index].task!.name,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                              const SizedBox(width: 10.0),
+                              Text(
+                                snapshot.data[index].task!.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          );
                       },
                     );
                   }
@@ -228,10 +207,7 @@ class MyHomeScreen extends StatelessWidget {
     );
   }
 
-  _updateTask(AssignedTask task) {
-    TaskController taskController = TaskController();
-    taskController.updateTask(task);
-  }
+  
 
   Future<dynamic> getTasks() async {
     final TaskController taskController = TaskController();

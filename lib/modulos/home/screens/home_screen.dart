@@ -3,8 +3,6 @@ import 'package:gestor_del_hogar/modulos/home/controller/home_controller.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/entities/home.dart';
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -62,6 +60,7 @@ class _CreateHomeForm extends StatelessWidget {
   const _CreateHomeForm();
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final HomeController homeController = HomeController();
     final TextEditingController controllerName = TextEditingController();

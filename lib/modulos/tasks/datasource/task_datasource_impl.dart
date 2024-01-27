@@ -85,15 +85,27 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  void updateTask(AssignedTask task) async{
+  Future<bool> updateAssignedTask(AssignedTask task) async{
     try {
-      var url = '/task/assigned/done';
-      var parameters = {'id': task.id, 'done': task.done};
-      await dio.put(url, data: parameters);
-    } catch (e) {
-      print(e);
+      var url = '/assignedTasks/update/${task.id}';
+      var parameters = { 
+        'id': task.id, 
+        'userId': task.userId, 
+        'task': task.task, 
+        'date': task.date.toString().substring(0, 10), 
+        'done': task.done,
+        'priority': task.priority,
+        'dayOfWeek': task.dayOfWeek,
+        'homeId': task.homeId,
+      };
+          await dio.put(url, data: parameters);
+          return true;
+        } catch (e) {
+          print(e);
+          return false;
+        }
     }
-  }
+ 
 
 
 @override
@@ -126,6 +138,35 @@ Future<List<Itinerary>?> getItineraries(Home home) async {
       print(e);
     }
     return tasks;
+  }
+  
+  @override
+  void updateTask(Task task) {
+    try {
+      var url = '/task';
+      var parameters = {'id': task.id, 'name': task.name, 'description': task.description};
+      dio.put(url, data: parameters);
+    } catch (e) {
+      print(e);
+    }
+  }
+  
+  @override
+  Future<bool> createTask(Task task, Home home, UserEntity currentUser) {
+    try {
+      var url = '/task';
+      var parameters = {
+        'name': task.name,
+        'description': task.description,
+        'homeId': home.id,
+        'creator': currentUser.id
+      };
+      dio.post(url, data: parameters);
+      return Future.value(true);
+    } catch (e) {
+      print(e);
+      return Future.value(false);
+    }
   }
 
 

@@ -28,6 +28,19 @@ class AssignedTask {
       _$AssignedTaskFromJson(json);
 
   Map<String, dynamic> toJson() => _$AssignedTaskToJson(this);
+
+  AssignedTask copyWith({required int done}) {
+    return AssignedTask(
+      id: id,
+      homeId: homeId,
+      userId: userId,
+      date: date,
+      dayOfWeek: dayOfWeek,
+      priority: priority,
+      done: done,
+      task: task,
+    );
+  }
 }
 
 @JsonSerializable()

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_del_hogar/modulos/tasks/screens/create_task_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/entities/home.dart';
 import '../../modulos/auth/controller/auth_controller.dart';
@@ -8,6 +9,7 @@ import '../../modulos/auth/screens/register_screen.dart';
 import '../../modulos/home/controller/home_controller.dart';
 import '../../modulos/home/screens/home_screen.dart';
 import '../../modulos/home/screens/my_home_screen.dart';
+import '../../modulos/tasks/screens/create_itinerary_screen.dart';
 import '../../modulos/tasks/screens/tasks_screen.dart';
 
 final isLogged = _isLoggedIn();
@@ -44,6 +46,16 @@ final router = GoRouter(
       path: '/tasks-screen',
       name: TasksScreen.name,
       builder: (BuildContext context, GoRouterState state) => const TasksScreen(),
+    ),
+    GoRoute(
+      path: '/create-task-screen',
+      name: CreateTaskScreen.name,
+      builder: (BuildContext context, GoRouterState state) => const CreateTaskScreen(),
+    ),
+    GoRoute(
+      path: '/create-itinerary-screen',
+      name: CreateItineraryScreen.name,
+      builder: (BuildContext context, GoRouterState state) => const CreateItineraryScreen(),
     ),
   ],
   

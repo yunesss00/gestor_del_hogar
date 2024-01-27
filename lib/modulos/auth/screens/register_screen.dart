@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const RegisterScreen({Key? key});
 
   static const name = 'register-screen';
@@ -11,7 +12,6 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -51,6 +51,7 @@ class _RegisterForm extends StatelessWidget {
   const _RegisterForm();
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final textStyles = Theme.of(context).textTheme;
     final AuthController authController = AuthController();
@@ -149,6 +150,7 @@ class _RegisterForm extends StatelessWidget {
                         controllerLastName2.text,
                         controllerEmail.text,
                         controllerPassword2.text)) {
+                      // ignore: use_build_context_synchronously
                       context.go('/home-screen');
                     } else {
                       const snackBar = SnackBar(

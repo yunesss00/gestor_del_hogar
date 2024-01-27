@@ -11,7 +11,9 @@ abstract class TaskDataSource {
       Home home, DateTime currentDay, UserEntity currentUser);
   Future<List<int>?> getDotListTasks(
       Home home, DateTime initDay, DateTime endDay);
-  void updateTask(AssignedTask task);
+  Future<bool> updateAssignedTask(AssignedTask task);
   Future<List<task.Task>?> getTasks(Home home);
   Future<List<Itinerary>?> getItineraries(Home home);
+  void updateTask(Task task);
+  Future<bool> createTask(Task task, Home home, UserEntity currentUser);
 }

@@ -6,6 +6,7 @@ import '../../home/controller/home_controller.dart';
 import '../controller/auth_controller.dart';
 
 class LoginScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const LoginScreen({Key? key});
 
   static const name = 'login';
@@ -13,7 +14,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -52,6 +52,7 @@ class _LoginForm extends StatelessWidget {
   const _LoginForm();
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final AuthController authController = AuthController();
     final HomeController homeController = HomeController();
@@ -104,6 +105,7 @@ class _LoginForm extends StatelessWidget {
                         // ignore: use_build_context_synchronously
                         context.go('/my-home-screen');
                       }else{
+                        // ignore: use_build_context_synchronously
                         context.go('/home-screen');
                       }
 

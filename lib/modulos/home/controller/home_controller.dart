@@ -4,6 +4,7 @@
 import 'package:gestor_del_hogar/core/web_services/web_services_manager.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 
+import '../../../core/states_managment/state_manager.dart';
 import '../../../domain/entities/home.dart';
 
 class HomeController {
@@ -11,6 +12,7 @@ class HomeController {
 
 
   HomeController();
+
 
   Future<void> create(String name) async {
     UserEntity? currentUser  = await WebServicesManager.getAuthdataSource().getCurrentUser();
