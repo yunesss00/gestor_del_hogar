@@ -32,7 +32,7 @@ class CheckAuthStatusScreen extends StatelessWidget {
                 context.go('/home-screen');
               }
             } else {
-              context.push('/login-screen');
+              context.go('/login-screen');
             }
           });
 

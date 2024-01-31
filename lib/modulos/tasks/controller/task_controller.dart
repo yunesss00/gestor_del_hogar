@@ -8,8 +8,10 @@ import 'package:gestor_del_hogar/modulos/home/controller/home_controller.dart';
 class TaskController {
 
   HomeController homeController = HomeController();
-
-
+  List<ItineraryTask> selectedTasks = [];
+  void setSelectedTasks(List<ItineraryTask> value) {
+    selectedTasks = value;
+  }
   TaskController();
 
   Future<List<AssignedTask>?> getDayTasks(DateTime currentDay) async {
@@ -62,4 +64,6 @@ class TaskController {
     final currentUser = await WebServicesManager.getAuthdataSource().getCurrentUser();
     return WebServicesManager.getTaskdataSource().createTask(task, home!, currentUser!);
   }
+
+  createItinerary(Itinerary itinerary) {}
 }

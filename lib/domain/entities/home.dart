@@ -40,7 +40,7 @@ class LstUsers {
   final String? email;
   final String? photo;
   final List<LstItineraries>? lstItineraries;
-  final List<LstTasks>? lstTasks;
+  final List<Task>? lstTasks;
 
   const LstUsers({
     this.id,
@@ -64,7 +64,7 @@ class LstItineraries {
   final int? id;
   final int? homeId;
   final String? name;
-  final List<LstTasks>? lstTasks;
+  final List<Task>? lstTasks;
 
   const LstItineraries({
     this.id,

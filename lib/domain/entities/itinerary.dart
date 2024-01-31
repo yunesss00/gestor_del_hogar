@@ -9,14 +9,14 @@ class Itinerary {
   final int? homeId;
   final String? name;
   final String? description;
-  final List<Task>? lstTasks;
+  final List<ItineraryTask>? lstItineraryTasks;
 
   const Itinerary({
     this.id,
     this.homeId,
     this.name,
     this.description,
-    this.lstTasks,
+    this.lstItineraryTasks,
   });
 
   factory Itinerary.fromJson(Map<String, dynamic> json) =>
@@ -26,19 +26,41 @@ class Itinerary {
 }
 
 @JsonSerializable()
+class ItineraryTask {
+  final int? id;
+  final int? dayOfWeek;
+  final int? deleleted;
+  final List<Task>? lstTasks;
+
+  const ItineraryTask({
+    this.id,
+    this.dayOfWeek,
+    this.deleleted,
+    this.lstTasks,
+  });
+
+  factory ItineraryTask.fromJson(Map<String, dynamic> json) =>
+      _$ItineraryTaskFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItineraryTaskToJson(this);
+
+  copyWith({required int dayOfWeek}) {}
+}
+
+@JsonSerializable()
 class LstTasks {
   final int? id;
   final int? homeId;
   final String? name;
+  final String? description;
   final int? creator;
-  final int? done;
 
   const LstTasks({
     this.id,
     this.homeId,
     this.name,
+    this.description,
     this.creator,
-    this.done,
   });
 
   factory LstTasks.fromJson(Map<String, dynamic> json) =>

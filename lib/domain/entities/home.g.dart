@@ -43,7 +43,7 @@ LstUsers _$LstUsersFromJson(Map<String, dynamic> json) => LstUsers(
           ?.map((e) => LstItineraries.fromJson(e as Map<String, dynamic>))
           .toList(),
       lstTasks: (json['lstTasks'] as List<dynamic>?)
-          ?.map((e) => LstTasks.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -64,7 +64,7 @@ LstItineraries _$LstItinerariesFromJson(Map<String, dynamic> json) =>
       homeId: json['homeId'] as int?,
       name: json['name'] as String?,
       lstTasks: (json['lstTasks'] as List<dynamic>?)
-          ?.map((e) => LstTasks.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

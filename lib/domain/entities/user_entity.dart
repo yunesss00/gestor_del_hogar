@@ -11,7 +11,7 @@ class UserEntity {
   final String? lastName1;
   final String? lastName2;
   final String? email;
-  final String? photo;
+  final dynamic photo;
   final List<Itinerary>? lstItineraries;
   final List<Task>? lstTasks;
 
@@ -37,13 +37,15 @@ class LstItineraries {
   final int? id;
   final int? homeId;
   final String? name;
-  final List<LstTasks>? lstTasks;
+  final String? description;
+  final List<ItineraryTask>? lstItineraryTasks;
 
   const LstItineraries({
     this.id,
     this.homeId,
     this.name,
-    this.lstTasks,
+    this.description,
+    this.lstItineraryTasks,
   });
 
   factory LstItineraries.fromJson(Map<String, dynamic> json) =>
@@ -53,19 +55,39 @@ class LstItineraries {
 }
 
 @JsonSerializable()
+class LstItineraryTasks {
+  final int? id;
+  final int? dayOfWeek;
+  final int? deleleted;
+  final List<Task>? lstTasks;
+
+  const LstItineraryTasks({
+    this.id,
+    this.dayOfWeek,
+    this.deleleted,
+    this.lstTasks,
+  });
+
+  factory LstItineraryTasks.fromJson(Map<String, dynamic> json) =>
+      _$LstItineraryTasksFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LstItineraryTasksToJson(this);
+}
+
+@JsonSerializable()
 class LstTasks {
   final int? id;
   final int? homeId;
   final String? name;
+  final String? description;
   final int? creator;
-  final int? done;
 
   const LstTasks({
     this.id,
     this.homeId,
     this.name,
+    this.description,
     this.creator,
-    this.done,
   });
 
   factory LstTasks.fromJson(Map<String, dynamic> json) =>

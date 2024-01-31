@@ -4,6 +4,7 @@ import 'package:gestor_del_hogar/domain/entities/itinerary.dart';
 import 'package:gestor_del_hogar/presentation/shared/widgets/weekDay_card.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 
+import '../../../core/states_managment/state_manager.dart';
 import '../../../domain/entities/task.dart';
 import '../../../presentation/shared/widgets/custom_filled_button.dart';
 import '../../../presentation/shared/widgets/custom_text_form_field.dart';
@@ -14,9 +15,13 @@ import '../controller/task_controller.dart';
 final TaskController taskController = TaskController();
 
 class CreateItineraryForm extends StatelessWidget {
-  const CreateItineraryForm();
+  static List<Task> lstTasks = [];
+
+  const CreateItineraryForm({super.key, lstTasks});
+
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final TextEditingController controllerName = TextEditingController();
     final TextEditingController controllerDescription = TextEditingController();
@@ -74,7 +79,31 @@ class CreateItineraryForm extends StatelessWidget {
               Text('Asignación de tareas',
                   style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: 20),
-              _containerWeekDays(context),
+              ContainerWeeks(),
+              const SizedBox(height: 20),
+              CustomFilledButton(
+                text: 'Crear',
+                onPressed: () async {
+                  print(taskController.selectedTasks[0].lstTasks![0].name);
+                  /*  if (_formKey.currentState!.validate()) {
+                    itinerary = itinerary.copyWith(
+                        name: controllerName.text,
+                        description: controllerDescription.text,
+                        tasks: SelectedTasksController().value);
+                    final res = await taskController.createItinerary(itinerary);
+                    if (res) {
+                      Navigator.pop(context);
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Error al crear el itinerario'),
+                        ),
+                      );
+                    }
+                  }*/
+                },
+              ),
             ],
           ),
         ),
@@ -83,7 +112,7 @@ class CreateItineraryForm extends StatelessWidget {
   }
 }
 
-_containerWeekDays(BuildContext context) {
+class ContainerWeeks extends StatefulWidget {
   final stringWeekdays = [
     'Lunes',
     'Martes',
@@ -94,7 +123,11 @@ _containerWeekDays(BuildContext context) {
     'Domingo'
   ];
 
-  return SingleChildScrollView(
+  ContainerWeeks({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ContainerWeekState();
+  /* return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,94 +143,69 @@ _containerWeekDays(BuildContext context) {
                   isToday: false));
         }),
       ));
+      */
 }
 
-_asignTask(BuildContext context, int index) {
-  final tasks = _getTasks();
-  // ignore: use_build_context_synchronously
+class _ContainerWeekState extends State<ContainerWeeks> {
+  SelectedTasksController controller = SelectedTasksController();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(7, (index) {
+            return GestureDetector(
+                onTap: () {
+                  _asignTask(context, index, controller);
+                },
+                child: WeekDayCard(
+                    day: index + 1,
+                    weekDay: widget.stringWeekdays[index],
+                    haveTask: false,
+                    isToday: false));
+          }),
+        ));
+  }
+}
+
+_asignTask(
+    BuildContext context, int index, SelectedTasksController controller) {
   final size = MediaQuery.of(context).size;
 
   // ignore: use_build_context_synchronously
   return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return GestureDetector(
-          onTap: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: SizedBox(
-              height: size.height - 180, // 80 los dos sizebox y 100 el ícono
-              width: double.infinity,
-              child: FutureBuilder(
-                future: tasks,
-                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          "No hay tareas todavia",
-                          textAlign: TextAlign.center,
-                        ),
-                      );
-                    } else {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            children: [
-                              if(index == 0)
-                              Row(
-                                children: [
-                                  const SizedBox(width: 20),
-                                  const Expanded(
-                                    child: Text('Tareas'),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      
-                                    },
-                                    icon: const Icon(Icons.add),
-                                  ), 
-                                  const SizedBox(width: 10),
-
-                                ],
-                              ),
-                              tasksList(context, index, snapshot.data ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                  return const CircularProgressIndicator();
-                },
-
-              ),
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: SizedBox(
+            height: size.height - 180, // 80 los dos sizebox y 100 el ícono
+            width: double.infinity,
+            child: GenericPulsableCard(
+              controller: controller,
+              dayOfWeek: index,
             ),
           ),
-        );
-      });
-}
-
-_getTasks() async {
-  return await taskController.getTasks();
-}
-
-
-Widget tasksList(BuildContext context, int index, List<Task>? tasks) {
-  return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-        child: GenericPulsableCard(
-          id: tasks![index].id!,
-          name: tasks[index].name!,
-          description: tasks[index].description!,
-        
         ),
-);
+      );
+    },
+  );
+}
+
+class SelectedTasksController {
+  final _value = StateManager.getListenableBean<List<ItineraryTask>>([]);
+
+  List<ItineraryTask> get value => _value.value;
+
+  void setValue(List<ItineraryTask> value) {
+    _value.value = value;
+    taskController.setSelectedTasks(value);
+  }
 }
