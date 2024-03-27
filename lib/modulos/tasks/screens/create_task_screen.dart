@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_del_hogar/domain/entities/assigned_task.dart';
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../presentation/shared/widgets/custom_filled_button.dart';

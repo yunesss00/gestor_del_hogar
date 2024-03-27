@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gestor_del_hogar/core/states_managment/state_manager.dart';
 import 'config/config.dart';
 import 'firebase_options.dart';
 
 void main() async {
   await Environment.initEnviroment();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  StateManager.initializeApp();
   runApp(const MainApp()); // Agrega esta línea para iniciar la aplicación
 
 }

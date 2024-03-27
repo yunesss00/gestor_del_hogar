@@ -9,7 +9,7 @@ import '../../../domain/entities/home.dart';
 
 class HomeController {
 
-
+  final participantsList = StateManager.getListenableBean<List<UserEntity>?>([]);
 
   HomeController();
 
@@ -43,6 +43,12 @@ class HomeController {
     }
 
     return weekDays;
+  }
+
+  Future<void> getAllParticipants() async {
+    Home? home = await findMyHome();
+    participantsList.value = await WebServicesManager.getHomedataSource().getAllParticipants(home);
+    participantsList.notifyListeners();
   }
 
 }

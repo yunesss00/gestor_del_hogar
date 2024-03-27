@@ -1,3 +1,4 @@
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'assigned_task.g.dart';
@@ -41,26 +42,4 @@ class AssignedTask {
       task: task,
     );
   }
-}
-
-@JsonSerializable()
-class Task {
-  final int? id;
-  final int? homeId;
-  final String? name;
-  final int? creator;
-  final String description;
-
-  const Task({
-    this.id,
-    this.homeId,
-    this.name,
-    this.creator,
-    required this.description,
-  });
-
-  factory Task.fromJson(Map<String, dynamic> json) =>
-      _$TaskFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
 }

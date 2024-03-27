@@ -28,7 +28,8 @@ class CreateItineraryForm extends StatelessWidget {
     late Itinerary itinerary = const Itinerary();
 
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Form(
           key: _formKey,
@@ -79,12 +80,12 @@ class CreateItineraryForm extends StatelessWidget {
               Text('Asignación de tareas',
                   style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: 20),
-              ContainerWeeks(),
+              TaskListContainer(),
               const SizedBox(height: 20),
               CustomFilledButton(
                 text: 'Crear',
                 onPressed: () async {
-                  print(taskController.selectedTasks[0].lstTasks![0].name);
+
                   /*  if (_formKey.currentState!.validate()) {
                     itinerary = itinerary.copyWith(
                         name: controllerName.text,
@@ -108,68 +109,25 @@ class CreateItineraryForm extends StatelessWidget {
           ),
         ),
       ),
+    ));
+  }
+}
+
+class TaskListContainer extends StatefulWidget {
+  @override
+  _TaskListContainerState createState() => _TaskListContainerState();
+}
+
+class _TaskListContainerState extends State<TaskListContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return GenericPulsableCard(
+     // controller: SelectedTasksController(), 
+      dayOfWeek: 0,
     );
   }
 }
-
-class ContainerWeeks extends StatefulWidget {
-  final stringWeekdays = [
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-    'Domingo'
-  ];
-
-  ContainerWeeks({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _ContainerWeekState();
-  /* return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(7, (index) {
-          return GestureDetector(
-              onTap: () {
-                _asignTask(context, index);
-              },
-              child: WeekDayCard(
-                  day: index + 1,
-                  weekDay: stringWeekdays[index],
-                  haveTask: false,
-                  isToday: false));
-        }),
-      ));
-      */
-}
-
-class _ContainerWeekState extends State<ContainerWeeks> {
-  SelectedTasksController controller = SelectedTasksController();
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(7, (index) {
-            return GestureDetector(
-                onTap: () {
-                  _asignTask(context, index, controller);
-                },
-                child: WeekDayCard(
-                    day: index + 1,
-                    weekDay: widget.stringWeekdays[index],
-                    haveTask: false,
-                    isToday: false));
-          }),
-        ));
-  }
-}
-
+/*
 _asignTask(
     BuildContext context, int index, SelectedTasksController controller) {
   final size = MediaQuery.of(context).size;
@@ -197,15 +155,4 @@ _asignTask(
       );
     },
   );
-}
-
-class SelectedTasksController {
-  final _value = StateManager.getListenableBean<List<ItineraryTask>>([]);
-
-  List<ItineraryTask> get value => _value.value;
-
-  void setValue(List<ItineraryTask> value) {
-    _value.value = value;
-    taskController.setSelectedTasks(value);
-  }
-}
+}^*/

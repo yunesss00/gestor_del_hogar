@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gestor_del_hogar/config/config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gestor_del_hogar/domain/entities/home.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 import 'auth_datasource.dart';
 
@@ -115,4 +116,6 @@ class AuthDataSourceImpl extends AuthDataSource {
     }
     return user;
   }
+
+ 
 }

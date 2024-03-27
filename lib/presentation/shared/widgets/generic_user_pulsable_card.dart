@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_del_hogar/core/states_managment/custom_listenable_widget.dart';
-import 'package:gestor_del_hogar/modulos/tasks/controller/task_status.dart';
-import 'package:gestor_del_hogar/modulos/tasks/screens/create_itinerary_form.dart';
-
+import 'package:gestor_del_hogar/modulos/auth/controller/user_status.dart';
 import '../../../core/states_managment/state_manager.dart';
-import '../../../domain/entities/itinerary.dart';
-import '../../../domain/entities/task.dart';
-import '../../../modulos/tasks/controller/task_controller.dart';
+import '../../../domain/entities/user_entity.dart';
+import '../../../modulos/home/controller/home_controller.dart';
 
-class GenericPulsableCard extends StatelessWidget {
-  final taskController = StateManager.getInstance().get<TaskController>();
-  final taskStatusController = StateManager.getInstance().get<TaskStatus>();
-  final tasks = StateManager.getListenableBean<List<ItineraryTask>>([]);
-  final int dayOfWeek;
-  GenericPulsableCard({super.key, required this.dayOfWeek});
 
+
+class GenericUserPulsableCard extends StatelessWidget {
+  final homeController = StateManager.getInstance().get<HomeController>();
+  final userStatusController = StateManager.getInstance().get<UserStatus>();
+  final List<UserEntity> users;
+  GenericUserPulsableCard({super.key, required this.users});
+  
   @override
   Widget build(BuildContext context) {
-    taskStatusController.addTasksStatus(taskController.taskList.value!);
+    userStatusController.addUsersStatus(homeController.participantsList.value!);
     return CustomListenableWidget(
-        valueListenable: taskController.taskList,
-        builder: (context, tasks, child) {
+        valueListenable: homeController.participantsList,
+        builder: (context, user, child) {
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: tasks?.length,
+            itemCount: user?.length,
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [
-                  _taskCard(context, index, tasks!),
+                  _userCard(context, index, user!),
                 ],
               );
             },
@@ -35,17 +33,15 @@ class GenericPulsableCard extends StatelessWidget {
         });
   }
 
-  _taskCard(BuildContext context, int index, data) {
+  _userCard(BuildContext context, int index, data) {
     ThemeData theme = Theme.of(context);
     return InkWell(
       onTap: () {
-        taskStatusController.updaTasksStatus(
-            data[index].id.toString(),
-            !taskStatusController
-                .tasksStatus.value[data[index].id.toString()]!);
+        userStatusController.updateUserStatus(
+              data[index].id.toString(), !userStatusController.usersStatus.value[data[index].id.toString()]!);
       },
       child: CustomListenableWidget(
-        valueListenable: taskStatusController.tasksStatus,
+        valueListenable: userStatusController.usersStatus,
         builder: (context, userStatus, child) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -63,10 +59,7 @@ class GenericPulsableCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Center(
-                            child: Text(
-                                data[index].firstName +
-                                    " " +
-                                    data[index].lastName1,
+                            child: Text(data[index].firstName + " " + data[index].lastName1,
                                 style: Theme.of(context).textTheme.titleSmall),
                           ),
                         ],

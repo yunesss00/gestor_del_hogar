@@ -21,9 +21,7 @@ class EditTaskForm extends StatelessWidget {
     final TextEditingController controllerName = TextEditingController();
     final TextEditingController controllerDescription = TextEditingController();
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50.0),
         child: Form(
           key: _formKey,
@@ -93,7 +91,6 @@ class EditTaskForm extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

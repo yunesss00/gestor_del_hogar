@@ -5,15 +5,14 @@ import '../../../config/constants/environment.dart';
 import '../../../domain/entities/home.dart';
 import 'home_datasource.dart';
 
-
 class HomeDataSourceImpl implements HomeDataSource {
-
   static final _instance = HomeDataSourceImpl._internal();
   HomeDataSourceImpl._internal();
 
   static HomeDataSource getInstance() {
     return _instance;
   }
+
   final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
 
   @override
@@ -24,25 +23,27 @@ class HomeDataSourceImpl implements HomeDataSource {
           .post('/home', data: {'name': name, 'creator': currentUser.id});
 
       home = Home.fromJson(response.data);
-
     } catch (e) {
       print(e);
     }
     return home;
   }
-  
+
   @override
   Future<void> addParticipants(int? homeId, int? participant) async {
     try {
-      await dio.post('/home/participants',
-          queryParameters: {'userId': participant, 'homeId': homeId, 'deleted': 0});
+      await dio.post('/home/participants', queryParameters: {
+        'userId': participant,
+        'homeId': homeId,
+        'deleted': 0
+      });
     } catch (e) {
       print(e);
     }
   }
 
   @override
-  Future<Home?> findMyHome(UserEntity? currentUser) async{
+  Future<Home?> findMyHome(UserEntity? currentUser) async {
     Home? home;
     try {
       var url = '/home/myHome';
@@ -57,6 +58,20 @@ class HomeDataSourceImpl implements HomeDataSource {
     return home;
   }
 
+   @override
+  Future<List<UserEntity>> getAllParticipants(Home? home) async {
+    List<UserEntity> participants = [];
 
-
+    try {
+      final homeId = home?.id;
+      var url = '/user/participants/$homeId';
+      var response = await dio.get(url);
+      participants = ((response.data as List<dynamic>)
+          .map((jsonItem) => UserEntity.fromJson(jsonItem))
+          .toList());
+    } catch (e) {
+      print(e);
+    }
+    return participants;
+  }
 }

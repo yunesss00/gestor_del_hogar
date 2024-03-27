@@ -1,17 +1,21 @@
+import 'package:gestor_del_hogar/core/states_managment/state_manager.dart';
 import 'package:gestor_del_hogar/core/web_services/web_services_manager.dart';
 import 'package:gestor_del_hogar/domain/entities/assigned_task.dart';
 import 'package:gestor_del_hogar/domain/entities/itinerary.dart';
-import 'package:gestor_del_hogar/domain/entities/task.dart' as task;
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 import 'package:gestor_del_hogar/modulos/home/controller/home_controller.dart';
 
 class TaskController {
-
   HomeController homeController = HomeController();
   List<ItineraryTask> selectedTasks = [];
+  
   void setSelectedTasks(List<ItineraryTask> value) {
     selectedTasks = value;
   }
+
+  final taskList = StateManager.getListenableBean<List<Task>?>([]);
+
   TaskController();
 
   Future<List<AssignedTask>?> getDayTasks(DateTime currentDay) async {
@@ -42,15 +46,13 @@ class TaskController {
     return WebServicesManager.getTaskdataSource().updateAssignedTask(task);
   }
 
-  Future<List<task.Task>?> getTasks() async{
+  Future<List<Task>?> getTasks() async {
     final home = await homeController.findMyHome();
-
     return await WebServicesManager.getTaskdataSource().getTasks(home!);
   }
 
-  Future<List<Itinerary>?>getItineraries() async {
+  Future<List<Itinerary>?> getItineraries() async {
     final home = await homeController.findMyHome();
-
     return WebServicesManager.getTaskdataSource().getItineraries(home!);
   }
 
@@ -61,9 +63,23 @@ class TaskController {
 
   Future<bool> createTask(Task task) async {
     final home = await homeController.findMyHome();
-    final currentUser = await WebServicesManager.getAuthdataSource().getCurrentUser();
-    return WebServicesManager.getTaskdataSource().createTask(task, home!, currentUser!);
+    final currentUser =
+        await WebServicesManager.getAuthdataSource().getCurrentUser();
+    return WebServicesManager.getTaskdataSource()
+        .createTask(task, home!, currentUser!);
   }
 
   createItinerary(Itinerary itinerary) {}
+
+  void deleteTask(Task task) {
+    WebServicesManager.getTaskdataSource().deleteTask(task);
+    taskList.value!.remove(task);
+    taskList.notifyListeners();
+  }
+
+  Future<void> loadTasks() async {
+    final home = await homeController.findMyHome();
+    taskList.value =
+        await WebServicesManager.getTaskdataSource().getTasks(home!);
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:gestor_del_hogar/domain/entities/home.dart';
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 
 import '../../../domain/entities/assigned_task.dart';
@@ -16,4 +17,5 @@ abstract class TaskDataSource {
   Future<List<Itinerary>?> getItineraries(Home home);
   void updateTask(Task task);
   Future<bool> createTask(Task task, Home home, UserEntity currentUser);
+  void deleteTask(task.Task task);
 }

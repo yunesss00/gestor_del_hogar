@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:gestor_del_hogar/domain/entities/itinerary.dart';
+import 'package:gestor_del_hogar/domain/entities/task.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 
 import '../../../config/constants/environment.dart';
@@ -166,6 +167,18 @@ Future<List<Itinerary>?> getItineraries(Home home) async {
     } catch (e) {
       print(e);
       return Future.value(false);
+    }
+  }
+  
+  @override
+  void deleteTask(Task task) {
+    try {
+      final taskId = task.id;
+      var url = '/task';
+      var parameters = {'id': taskId};
+      dio.delete(url, data: parameters);
+    } catch (e) {
+      print(e);
     }
   }
 

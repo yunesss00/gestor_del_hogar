@@ -30,19 +30,3 @@ Map<String, dynamic> _$AssignedTaskToJson(AssignedTask instance) =>
       'done': instance.done,
       'task': instance.task,
     };
-
-Task _$TaskFromJson(Map<String, dynamic> json) => Task(
-      id: json['id'] as int?,
-      homeId: json['homeId'] as int?,
-      name: json['name'] as String?,
-      creator: json['creator'] as int?,
-      description: json['description'] as String,
-    );
-
-Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
-      'id': instance.id,
-      'homeId': instance.homeId,
-      'name': instance.name,
-      'creator': instance.creator,
-      'description': instance.description,
-    };

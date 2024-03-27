@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/assigned_task.dart';
 
@@ -38,7 +39,7 @@ class TasksPopup extends StatelessWidget{
                   )
                 ],
               ),
-              subtitle: Text(task.task!.description),
+              subtitle: Text(task.task!.description!),
             );
 
           }).toList() ?? [],
@@ -56,9 +57,8 @@ class TasksPopup extends StatelessWidget{
         ),
         ElevatedButton(
           onPressed: () {
-            // Agregar lógica para manejar el botón "Agregar"
-            // Puedes abrir otro popup para ingresar información adicional
-            // o realizar cualquier acción que desees.
+            // Agregar lógica para agregar una tarea
+            Navigator.of(context).pop();
           },
           child: const Text('Agregar'),
         ),
