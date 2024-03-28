@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gestor_del_hogar/modulos/auth/controller/user_status.dart';
+import 'package:gestor_del_hogar/modulos/tasks/controller/datepicker_controller.dart';
+import 'package:gestor_del_hogar/modulos/tasks/controller/task_status.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../modulos/home/controller/home_controller.dart';
@@ -16,6 +18,10 @@ class StateManager{
     GetIt.instance.registerLazySingleton<AuthController>(() => AuthController());
     GetIt.instance.registerLazySingleton<TaskController>(() => TaskController());
     GetIt.instance.registerLazySingleton<UserStatus>(() => UserStatus());
+    GetIt.instance.registerLazySingleton<TaskStatus>(() => TaskStatus());
+    GetIt.instance.registerLazySingleton<DatePickerController>(() => DatePickerController());
+
+    
 
 
   }

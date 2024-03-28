@@ -18,4 +18,5 @@ abstract class TaskDataSource {
   void updateTask(Task task);
   Future<bool> createTask(Task task, Home home, UserEntity currentUser);
   void deleteTask(task.Task task);
+  Future<bool> assignTask(AssignedTask task);
 }

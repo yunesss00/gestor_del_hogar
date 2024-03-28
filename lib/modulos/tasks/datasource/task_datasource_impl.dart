@@ -181,6 +181,27 @@ Future<List<Itinerary>?> getItineraries(Home home) async {
       print(e);
     }
   }
+  
+  @override
+  Future<bool> assignTask(AssignedTask task) {
+    try {
+      var url = '/assignedTasks/create';
+      var parameters = {
+        'userId': task.userId,
+        'task': task.task,
+        'date': task.date.toString().substring(0, 10),
+        'done': task.done,
+        'priority': task.priority,
+        'dayOfWeek': task.dayOfWeek,
+        'homeId': task.homeId,
+      };
+      dio.post(url, data: parameters);
+      return Future.value(true);
+    } catch (e) {
+      print(e);
+      return Future.value(false);
+    }
+  }
 
 
 }

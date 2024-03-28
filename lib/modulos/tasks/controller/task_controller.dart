@@ -82,4 +82,20 @@ class TaskController {
     taskList.value =
         await WebServicesManager.getTaskdataSource().getTasks(home!);
   }
+
+  Future<bool> assignTask(Task task, DateTime date) async{
+    final home = await homeController.findMyHome();
+    final currentUser = await WebServicesManager.getAuthdataSource().getCurrentUser();
+    final dayOfWeek = date.weekday;
+    final assignedTask = AssignedTask(
+        homeId: home!.id,
+        userId: currentUser!.id,
+        date: date.toString(),
+        dayOfWeek: dayOfWeek,
+        priority: null,
+        done: 0,
+        task: task);
+    return WebServicesManager.getTaskdataSource().assignTask(assignedTask);
+  }
+
 }
