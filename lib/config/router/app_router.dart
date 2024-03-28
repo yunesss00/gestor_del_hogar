@@ -17,48 +17,65 @@ final haveHome = _haveHome();
 
 final router = GoRouter(
   navigatorKey: GlobalKey<NavigatorState>(),
+  initialLocation: '/init',
   routes: [
     GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) => const CheckAuthStatusScreen(),
+      path: '/init',
+      builder: (context, state) {
+        if (isLogged == true) {
+          if (haveHome == true) {
+            return const MyHomeScreen();
+          } else {
+            return const HomeScreen();
+          }
+        } else {
+          return const LoginScreen();
+        }
+      },
     ),
     GoRoute(
       path: '/login-screen',
       name: LoginScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const LoginScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const LoginScreen(),
     ),
     GoRoute(
       path: '/register-screen',
       name: RegisterScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const RegisterScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const RegisterScreen(),
     ),
     GoRoute(
       path: '/home-screen',
       name: HomeScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const HomeScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const HomeScreen(),
     ),
     GoRoute(
       path: '/my-home-screen',
       name: MyHomeScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const MyHomeScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const MyHomeScreen(),
     ),
     GoRoute(
       path: '/tasks-screen',
       name: TasksScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const TasksScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const TasksScreen(),
     ),
     GoRoute(
       path: '/create-task-screen',
       name: CreateTaskScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const CreateTaskScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const CreateTaskScreen(),
     ),
     GoRoute(
       path: '/create-itinerary-screen',
       name: CreateItineraryScreen.name,
-      builder: (BuildContext context, GoRouterState state) => const CreateItineraryScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const CreateItineraryScreen(),
     ),
   ],
-  
 );
 
 Future<bool> _isLoggedIn() async {

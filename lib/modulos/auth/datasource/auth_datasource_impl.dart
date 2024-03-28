@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:gestor_del_hogar/config/config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestor_del_hogar/domain/entities/home.dart';
 import 'package:gestor_del_hogar/domain/entities/user_entity.dart';
 import 'auth_datasource.dart';
+import 'package:crypto/crypto.dart';
 
 class AuthDataSourceImpl extends AuthDataSource {
   static final _instance = AuthDataSourceImpl._internal();
@@ -15,7 +19,11 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   AuthDataSourceImpl();
 
-  final dio = Dio(BaseOptions(baseUrl: Environment.apiUrl));
+  final dio = Dio(BaseOptions(
+    baseUrl: Environment.apiUrl,
+    validateStatus: (status) => true,
+  ));
+
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -31,13 +39,11 @@ class AuthDataSourceImpl extends AuthDataSource {
         'email': email
       });
 
-     user = UserEntity.fromJson(response.data);
-
+      user = UserEntity.fromJson(response.data);
     } catch (e) {
       print(e.toString());
     }
     return user;
-
   }
 
   @override
@@ -101,13 +107,13 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<UserEntity?> getCurrentUser() async {
-    UserEntity? user ;
-
+    UserEntity? user;
     try {
       final firebaseUser = _auth.currentUser;
       var url = '/user/find';
       var parameters = {'email': firebaseUser!.email};
-
+      HttpClient client = new HttpClient();
+  client.badCertificateCallback =((X509Certificate cert, String  host, int port) => true);
       var response = await dio.get(url, queryParameters: parameters);
 
       user = UserEntity.fromJson(response.data);
@@ -116,6 +122,4 @@ class AuthDataSourceImpl extends AuthDataSource {
     }
     return user;
   }
-
- 
 }

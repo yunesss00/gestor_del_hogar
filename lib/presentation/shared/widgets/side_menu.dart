@@ -68,7 +68,9 @@ class _SideMenuState extends State<SideMenu> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(28, 10, 16, 10),
             child: TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                context.push('/my-home-screen');
+              },
               icon: const Icon(Icons.home_rounded),
               label: const Text('Mi hogar'))
           ),
